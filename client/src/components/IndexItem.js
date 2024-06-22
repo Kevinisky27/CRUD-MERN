@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import axios from './axiosConfig';
 import TableRow from './TableRow';
+import { Link } from 'react-router-dom';
 
 class IndexItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: '',
-            items: ''
+            items: []
         }
     }
 
@@ -25,25 +26,30 @@ class IndexItem extends Component {
     }
 
     tabRow = () => {
-        if(this.state.items instanceof Array) {
+        if (this.state.items instanceof Array) {
             return this.state.items.map((object, i) => {
-                return <TableRow obj={object} key={i} />
+                return <TableRow obj={object} key={i} onDelete={this.handleDelete} />
             })
         }
     }
 
+    handleDelete = (id) => {
+        this.setState({
+            items: this.state.items.filter(item => item._id !== id)
+        });
+    }
+
     render() {
         return (
-            <div className="container">
-                <h1 className='text-center'>MERN CRUD</h1>
-                <br />
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>ID Tarea</td>
-                            <td>Nombre</td>
-                        </tr>
-                    </thead>
+            <div className="container mt-5">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h1 className="text-center">MERN CRUD</h1>
+                    <Link to="/add-item" className="btn btn-success">
+                        <i className="fas fa-plus"></i> Agregar Tarea
+                    </Link>
+                </div>
+                <table className="table table-striped table-hover">
+                    
                     <tbody>
                         {this.tabRow()}
                     </tbody>

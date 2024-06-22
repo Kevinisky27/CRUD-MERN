@@ -2,28 +2,26 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ItemService from './ItemService';
 
-
 class EditItem extends Component {
-
     constructor(props) {
         super(props);
         this.addItemService = new ItemService();
         this.state = {
             value: ''
-        }
+        };
     }
 
     componentDidMount = () => {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.get(`${baseURL}/items/edit/`+this.props.match.params.id)
-        .then((response) => {
-            this.setState({
-                value: response.data
+        axios.get(`${baseURL}/items/edit/${this.props.match.params.id}`)
+            .then((response) => {
+                this.setState({
+                    value: response.data.item
+                });
             })
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     handleChange = (event) => {
@@ -39,25 +37,30 @@ class EditItem extends Component {
     }
 
     render() {
-        return(
-            <div className="container">
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Editar tarea:
-                        <input
-                            type="text"
-                            value={this.state.value.item}
-                            onChange={this.handleChange}
-                            className="form-control"
-                        />
-                    </label>
-                    <br />
-                    <input
-                        type="submit"
-                        value="Editar"
-                        className="btn btn-primary"
-                    />
-                </form>
+        return (
+            <div className="container mt-5">
+                <div className="card shadow-sm">
+                    <div className="card-header bg-primary text-white">
+                        <h4 className="mb-0">Editar Tarea</h4>
+                    </div>
+                    <div className="card-body">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="taskInput">Editar tarea:</label>
+                                <input
+                                    type="text"
+                                    id="taskInput"
+                                    value={this.state.value}
+                                    onChange={this.handleChange}
+                                    className="form-control"
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-primary">
+                                Editar
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }
