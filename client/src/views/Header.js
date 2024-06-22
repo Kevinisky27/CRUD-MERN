@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {LinkContainer} from 'react-router-bootstrap';
 
 import {
-    Grid,
-    Row,
-    Col,
     Navbar,
     Nav,
     NavItem,
