@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master  # Use the branch you use for production
-      
+
 jobs:
   host-1:
     runs-on: frontend-deploy
@@ -20,7 +20,7 @@ jobs:
       # Install dependencies
       - name: Install Dependencies
         working-directory: client 
-        run: npm install
+        run: npm install --legacy-peer-deps
       
       # Create .env file in public directory
       - name: Adding env file
@@ -30,7 +30,7 @@ jobs:
       - name: Build React App
         working-directory: client
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       # Set up SSH key from GitHub Secrets
@@ -55,6 +55,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST1 }}
+
   host-2:
     runs-on: self-hosted  
     steps:
@@ -69,7 +70,7 @@ jobs:
       # Install dependencies
       - name: Install Dependencies
         working-directory: client 
-        run: npm install
+        run: npm install --legacy-peer-deps
       
       # Create .env file in public directory
       - name: Adding env file
@@ -79,7 +80,7 @@ jobs:
       - name: Build React App
         working-directory: client
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       # Set up SSH key from GitHub Secrets
