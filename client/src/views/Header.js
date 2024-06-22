@@ -49,9 +49,9 @@ function CustomHeader(props) {
                     </LinkContainer>
                 </NavItem>
 
-               <NavItem eventKey={1} href="#">
+              <NavItem eventKey={1} href="#">
                   Link Right
-               </NavItem>
+              </NavItem>
             </Nav>
           </Navbar.Collapse>
 
