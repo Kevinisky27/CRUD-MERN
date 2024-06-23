@@ -19,6 +19,12 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
+// Middleware para registrar todas las solicitudes
+app.use((req, res, next) => {
+    console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
+    next();
+});
+
 // Use middlewares to set view engine and post json data to the server
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
