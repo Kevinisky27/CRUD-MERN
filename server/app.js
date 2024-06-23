@@ -19,12 +19,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Middleware para registrar todas las solicitudes
-app.use((req, res, next) => {
-    console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
-    next();
-});
-
 // Middleware para agregar manualmente las cabeceras CORS a todas las respuestas
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://shoppr-web-alb-1993009619.us-east-1.elb.amazonaws.com');
@@ -33,6 +27,12 @@ app.use((req, res, next) => {
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200);
     }
+    next();
+});
+
+// Middleware para registrar todas las solicitudes (opcional, para depuración)
+app.use((req, res, next) => {
+    console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
     next();
 });
 

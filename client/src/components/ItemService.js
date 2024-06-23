@@ -3,43 +3,39 @@ import axios from 'axios';
 class ItemService {
     sendData(data) {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.post(`${baseURL}/items/add/post`, {
+        axios.post(`${baseURL}/items/add`, {  // Corrige la ruta aquí
             item: data
         })
         .then((response) => {
-            this.setState({
-                item: response.data
-            })
+            console.log(response.data);
         })
         .catch((error) => {
             console.log(error);
         });
     }
 
-    updateDate(data, id) {
+    updateData(data, id) {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.post(`${baseURL}/items/update/`+id, {
+        axios.post(`${baseURL}/items/update/${id}`, {  // Corrige la ruta aquí
             item: data
         })
         .then((response) => {
-            this.asetState({
-                items: response.data
-            })
+            console.log(response.data);
         })
         .catch((error) => {
-            console.log(error)
-        })
+            console.log(error);
+        });
     }
 
     deleteData(id) {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.delete(`${baseURL}/items/delete/`+id)
+        axios.delete(`${baseURL}/items/delete/${id}`)
         .then(() => {
-            console.log('Deleted')
+            console.log('Deleted');
         })
         .catch((error) => {
-            console.log(error)
-        })
+            console.log(error);
+        });
     }
 }
 
