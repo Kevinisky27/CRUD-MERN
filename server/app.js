@@ -9,13 +9,12 @@ const connectDB = require('./config/db');
 // Conectar a MongoDB
 connectDB();
 
-// Required application-specific custom router module
-var itemRouter = require('./src/routes/itemRouter');
-
 // Configuración del middleware cors
 var corsOptions = {
     origin: 'http://shoppr-web-alb-1993009619.us-east-1.elb.amazonaws.com',
-    optionsSuccessStatus: 200
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions));
@@ -27,7 +26,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+// Required application-specific custom router module
+var itemRouter = require('./src/routes/itemRouter');
 app.use('/items', itemRouter);
+
+// Manejar solicitudes preflight
+app.options('*', cors(corsOptions));
 
 // Start the server
 app.listen(port, function() {
