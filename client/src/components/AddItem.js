@@ -1,27 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import ItemService from './ItemService';
 
-class EditItem extends Component {
+class AddItem extends Component {
     constructor(props) {
         super(props);
-        this.addItemService = new ItemService();
         this.state = {
             value: ''
         };
-    }
-
-    componentDidMount = () => {
-        const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.get(`${baseURL}/items/add/${this.props.match.params.id}`)
-            .then((response) => {
-                this.setState({
-                    value: response.data.item
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.addItemService = new ItemService();
     }
 
     handleChange = (event) => {
@@ -30,36 +17,38 @@ class EditItem extends Component {
         });
     }
 
-    handleSubmit = async (event) => {
+    handleSubmit = (event) => {
         event.preventDefault();
-        // Enviar los datos actualizados de la tarea a la API
-        await this.addItemService.updateDate({ item: this.state.value }, this.props.match.params.id);
-        // Redireccionar a la página principal
+        this.addItemService.sendData(this.state.value);
         this.props.history.push('/');
     }
 
     render() {
-        return (
+        return(
             <div className="container mt-5">
                 <div className="card shadow-sm">
                     <div className="card-header bg-primary text-white">
-                        <h4 className="mb-0">Editar Tarea</h4>
+                        <h4 className="mb-0">Agregar Tarea</h4>
                     </div>
                     <div className="card-body">
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <label htmlFor="taskInput">Editar tarea:</label>
+                                <label htmlFor="taskInput">Nombre de la tarea:</label>
                                 <input
                                     type="text"
                                     id="taskInput"
                                     value={this.state.value}
                                     onChange={this.handleChange}
                                     className="form-control"
+                                    placeholder="Ingrese la tarea"
                                 />
                             </div>
-                            <button type="submit" className="btn btn-primary">
-                                Editar
+                            <button type="submit" className="btn btn-success mr-2">
+                                <i className="fas fa-plus"></i> Agregar
                             </button>
+                            <Link to="/" className="btn btn-secondary">
+                                <i className="fas fa-arrow-left"></i> Regresar
+                            </Link>
                         </form>
                     </div>
                 </div>
@@ -68,4 +57,4 @@ class EditItem extends Component {
     }
 }
 
-export default EditItem;
+export default AddItem;

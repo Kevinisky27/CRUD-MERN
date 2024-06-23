@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ItemService from './ItemService';
+import './TableRow.css'; // Importamos el archivo de estilos personalizados
 
 class TableRow extends Component {
     constructor(props) {
@@ -18,11 +19,11 @@ class TableRow extends Component {
 
     render() {
         return (
-            <div className="card mb-3 shadow-sm">
+            <div className="card mb-3 shadow-sm custom-card">
                 <div className="card-body d-flex justify-content-between align-items-center">
                     <div className="item-info">
                         <h5 className="card-title">ID: {this.props.obj._id}</h5>
-                        <p className="card-text" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
+                        <p className="card-text item-text">
                             Tarea: {this.props.obj.item}
                         </p>
                     </div>

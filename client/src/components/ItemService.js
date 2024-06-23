@@ -1,16 +1,14 @@
 import axios from 'axios';
 
-
 class ItemService {
-
     sendData(data) {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.post(`${baseURL}/add/post`, {
+        axios.post(`${baseURL}/items/add/post`, {
             item: data
         })
         .then((response) => {
             this.setState({
-                items: response.data
+                item: response.data
             })
         })
         .catch((error) => {
@@ -35,7 +33,7 @@ class ItemService {
 
     deleteData(id) {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        axios.get(`${baseURL}/items/delete/`+id)
+        axios.delete(`${baseURL}/items/delete/`+id)
         .then(() => {
             console.log('Deleted')
         })
