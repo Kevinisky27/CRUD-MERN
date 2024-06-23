@@ -12,9 +12,9 @@ connectDB();
 // Configuración del middleware cors
 var corsOptions = {
     origin: 'http://shoppr-web-alb-1993009619.us-east-1.elb.amazonaws.com',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200 // Algunas versiones antiguas de navegadores (IE11, varios SmartTVs) podrían tener problemas con status 204
 };
 
 app.use(cors(corsOptions));
