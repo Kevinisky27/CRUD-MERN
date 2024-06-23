@@ -4,18 +4,24 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var port = 4000;
 var cors = require('cors');
-const connectDB = require ('./config/db');
-
+const connectDB = require('./config/db');
 
 // Conectar a MongoDB
 connectDB();
 
-// Required aplication specific custom router module
+// Required application-specific custom router module
 var itemRouter = require('./src/routes/itemRouter');
+
+// Configuración del middleware cors
+var corsOptions = {
+    origin: 'http://shoppr-web-alb-1993009619.us-east-1.elb.amazonaws.com',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 // Use middlewares to set view engine and post json data to the server
 app.use(express.static('public'));
-app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
