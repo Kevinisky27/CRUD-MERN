@@ -60,7 +60,7 @@ itemRouter.route('/update/:id').post(function(req, res, next) {
 
 
 // Defined delete|remove|destroy route
-itemRouter.route('/delete/:id').get(function(req, res, next) {
+itemRouter.route('/delete/:id').delete(function(req, res, next) {
     Item.findByIdAndRemove({_id: req.params.id }, function(err, item) {
         if(err) {
             res.json(err);

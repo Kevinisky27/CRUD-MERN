@@ -12,7 +12,7 @@ connectDB();
 
 // Required aplication specific custom router module
 var itemRouter = require('./src/routes/itemRouter');
-app.options('*', cors())
+app.use(cors())
 
 app.use(bodyParser.urlencoded({
     extended: true
