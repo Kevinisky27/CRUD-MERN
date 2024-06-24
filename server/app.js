@@ -13,7 +13,13 @@ connectDB();
 // Required aplication specific custom router module
 var itemRouter = require('./src/routes/itemRouter');
 
-// Use middlewares to set view engine and post json data to the server
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://shoppr-web-alb-766660231.us-east-1.elb.amazonaws.com');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+});
+
 app.use(express.static('public'));
 var corsOptions = {
     origin: 'http://shoppr-web-alb-766660231.us-east-1.elb.amazonaws.com',
