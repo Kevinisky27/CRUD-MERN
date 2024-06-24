@@ -14,7 +14,7 @@ connectDB();
 var itemRouter = require('./src/routes/itemRouter');
 
 app.use(cors({
-    origin: 'http://shoppr-web-alb-766660231.us-east-1.elb.amazonaws.com',
+    origin: '*',
     optionsSuccessStatus: 200 
 }));
 
