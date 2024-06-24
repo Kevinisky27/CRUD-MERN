@@ -13,20 +13,10 @@ connectDB();
 // Required aplication specific custom router module
 var itemRouter = require('./src/routes/itemRouter');
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://shoppr-web-alb-766660231.us-east-1.elb.amazonaws.com');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    next();
-});
-
-app.use(express.static('public'));
-var corsOptions = {
+app.use(cors({
     origin: 'http://shoppr-web-alb-766660231.us-east-1.elb.amazonaws.com',
-    optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+    optionsSuccessStatus: 200 
+}));
 
 app.use(bodyParser.urlencoded({
     extended: true

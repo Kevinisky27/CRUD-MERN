@@ -1,51 +1,56 @@
 import React, { Component } from 'react';
+import axios from './axiosConfig';
 import TableRow from './TableRow';
+import { Link } from 'react-router-dom';
 
 class IndexItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: '',
-            items: ''
+            items: []
         }
     }
 
     componentDidMount = () => {
         const baseURL = process.env.REACT_APP_PUBLIC_URL;
-        fetch(`${baseURL}/items`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                this.setState({ items: data });
-            })
-            .catch(error => {
-                console.error('There was a problem with your fetch operation:', error);
+        axios.get(`${baseURL}/items`)
+        .then((response) => {
+            this.setState({
+                items: response.data
             });
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     tabRow = () => {
         if (this.state.items instanceof Array) {
             return this.state.items.map((object, i) => {
-                return <TableRow obj={object} key={i} />
+                return <TableRow obj={object} key={i} onDelete={this.handleDelete} />
             })
         }
     }
 
+    handleDelete = (id) => {
+        this.setState({
+            items: this.state.items.filter(item => item._id !== id)
+        });
+    }
+
     render() {
         return (
-            <div className="container">
-                <h1 className='text-center'>MERN CRUD</h1>
-                <br />
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>ID Tarea</td>
-                            <td>Nombre</td>
-                        </tr>
+            <div className="container mt-5">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h1 className="text-center">MERN CRUD</h1>
+                    <Link to="/add-item" className="btn btn-success">
+                        <i className="fas fa-plus"></i> Agregar Tarea
+                    </Link>
+                </div>
+                <table className="table table-striped table-hover">
+                    <thead className="thead-dark">
+                        
                     </thead>
                     <tbody>
                         {this.tabRow()}
