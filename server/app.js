@@ -15,7 +15,12 @@ var itemRouter = require('./src/routes/itemRouter');
 
 // Use middlewares to set view engine and post json data to the server
 app.use(express.static('public'));
-app.use(cors());
+var corsOptions = {
+    origin: 'http://shoppr-web-alb-766660231.us-east-1.elb.amazonaws.com',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({
     extended: true
