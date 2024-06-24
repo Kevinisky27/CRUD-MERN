@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use((req, res) => {
     res.append('Access-Control-Allow-Origin', ['*']);
     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST, DELETE');
-    // res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
 });
 
 app.use(bodyParser.urlencoded({
