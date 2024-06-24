@@ -35,11 +35,7 @@ itemRouter.route('/').get(function(req, res, next) {
 itemRouter.route('/edit/:id').get(function(req, res, next) {
     var id = req.params.id;
     Item.findById(id, function(err, item) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.json(item);
-        }
+        res.json(item);
     });
 });
 
@@ -62,25 +58,9 @@ itemRouter.route('/update/:id').post(function(req, res, next) {
     });
 });
 
-itemRouter.route('/update/:id').post(function(req, res, next) {
-    Item.findById(req.params.id, function(err, item) {
-        if(!item) {
-            return next(new Error('could not load Document'));
-        }
-        else { // do your update here
-            item.item = req.body.item;
-            item.save().then(item => {
-                res.json('Update complete');
-            })
-            .catch((err) => {
-                res.status(400).send("unable to update the database");
-            });
-        }
-    });
-});
 
 // Defined delete|remove|destroy route
-itemRouter.route('/delete/:id').delete(function(req, res, next) {
+itemRouter.route('/delete/:id').get(function(req, res, next) {
     Item.findByIdAndRemove({_id: req.params.id }, function(err, item) {
         if(err) {
             res.json(err);

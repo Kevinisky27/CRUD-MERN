@@ -15,13 +15,7 @@ var itemRouter = require('./src/routes/itemRouter');
 
 // Use middlewares to set view engine and post json data to the server
 app.use(express.static('public'));
-
-// CORS
-app.use((req, res) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST, DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-});
+app.use(cors());
 
 app.use(bodyParser.urlencoded({
     extended: true
